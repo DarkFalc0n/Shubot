@@ -8,7 +8,6 @@ from utils import (
     commentCheck,
     inboxCheck,
     replyToComment,
-    updateKnowmore,
 )
 from quotes import (
     dandaCount,
@@ -16,6 +15,8 @@ from quotes import (
     randomQuote,
     shutupShubot,
     cancelInvite,
+    greetings,
+    pickRandom,
 )
 
 
@@ -23,9 +24,6 @@ signalHandler = SignalHandler()
 
 
 def main():
-
-    # downloadNewSubtitles()
-    updateKnowmore()
 
     commentCheckTime = 0
     inboxCheckTime = 0
@@ -41,14 +39,14 @@ def main():
 
         if time.time() > commentCheckTime:
             commentCheck()
-            commentCheckTime = time.time() + 1800
+            commentCheckTime = time.time() + 10000
 
         if comment.saved \
                 or comment.author == me \
-                or re.search(r"\bre+post\b", comment.body, re.I):
+                or re.search("\bre+post\b", comment.body, re.I):
             continue
 
-        if re.search(r"chup|shut ?up|block|stop", comment.body, re.I) \
+        if re.search(r"\bchup\b|\b(shut)?-?(up)\b|\bblock\b|\bstop\b", comment.body, re.I) \
                 and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with shutupShubot")
             replyToComment(comment, shutupShubot())
@@ -61,17 +59,25 @@ def main():
             print(f"Replying to '{comment.permalink}' with Cakeday")
             replyToComment(comment, happyCakeday())
 
-        elif re.search(r"\bShubham\b|\bbeastboyshub?-?(Shub| ?bot)\b|\bShubot\b|\bdanda\b|\bchippu\b",comment.body, re.I):
+        elif re.search(r"\bShubham\b|\bbeastboyshub?-?(Shub | ?bot)\b|\bShubot\b|\bdanda\b|\bchippu\b|\brealshub\b|\bShubhu\b",comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with random quote")
             replyToComment(comment, randomQuote())
 
-        elif re.search(r"\bShubh\b",comment.body, re.I)
+        elif re.search(r"\bShubh\b",comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with cancelled invite")
             replyToComment(comment, cancelInvite())
 
-        elif re.search(r"dandacount", comment.body, re.I,comment.body, re.I):
+        elif re.search(r"dandacount", comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with Danda count")
-            replyToComment(comment, dandaCount())
+            replyToComment(comment, dandaCount(comment))
+
+        elif re.search(r"\bHello\b|\bHi\b|\bHey\b", comment.body, re.I):
+            print(f"Replying to '{comment.permalink}' with greetings")
+            replyToComment(comment, pickRandom("greetings"))
+
+        elif re.search(r"\bbot\b",comment.body, re.I):
+            print(f"Replying to '{comment.permalink}' with bot reply")
+            replyToComment(comment, pickRandom("notbot"))
 
         signalHandler.loopEnd()
 

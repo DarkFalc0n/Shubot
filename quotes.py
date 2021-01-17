@@ -2,7 +2,7 @@ import random
 from Reddit import reddit
 from prawcore.exceptions import NotFound
 import re
-
+import os
 
 def urlQuote(a):
     from urllib.parse import quote
@@ -18,22 +18,11 @@ def createMsgLink(to=None, subject=None, message=None):
 
 
 def happyCakeday():
-    return "Happy cakeday! Here have a quote!  \n\n&nbsp;\n\n" +\
+    return "Happy cakeday to you. Wanna hear a Shubham exclusive quote? Here you go: \n\n&nbsp;\n\n" +\
         randomQuote() + '\u200e'
 
-
-
-
-# whoAmIs = None
-
-
-# def getWhoAmI():
-#     global whoAmIs
-#     if whoAmIs is None:
-#         wikiPg = reddit.subreddit("SaimanSaid").wiki["whoami"].content_md
-#         whoAmIs = [a.strip() for a in wikiPg.splitlines() if a]
-#     return random.choice(whoAmIs).strip()
-
+def greetings():
+    return "Hey fella, Shubot here!"
 
 rickRolls = None
 
@@ -41,54 +30,26 @@ rickRolls = None
 def getRickRoll():
     global rickRolls
     if rickRolls is None:
-        rickRolls = 
-    return random.choice(rickRolls)
-
+        rickRolls = "https://youtu.be/dQw4w9WgXcQ"
+    return rickrolls
 
 def randomQuote(quote=None):
 
     if quote is None:
         allQuotes = getAllQuotes()
-        quote = random.choices(allQuotes, [a.weight for a in allQuotes])[0]
+        quote = random.choices(allQuotes)
 
-    if random.randint(0, 100):
-        youtubeLink = quote.youtubeLink
+    if random.randint(0, 50):
+        msg = quote 
     else:
         youtubeLink = getRickRoll()
-
-    msg = quote.quoteText + '\n\n&nbsp;\n\n' +\
-        f'[Quote Sauce](<{youtubeLink}> "A rick-roll for sure")' + \
-        '\n***\n' + createFooter()
+        msg = quote + '\n\n&nbsp;\n\n' +\
+        f'[Quote Sauce](<{youtubeLink}>)'
+    
 
     return msg
 
-
-# def createFooter():
-#     me_ = getWhoAmI()
-#     footer = me_
-
-#     if not me_.startswith('$'):
-#         footer = "I am " + footer
-#     if not me_.endswith('$'):
-#         footer = footer + " I reply to danda, Timothy or Saibot"
-#     if not me_.endswith('$$'):
-#         footer = footer + ' ^[Know&nbsp;more](https://redd.it/fvkvw9)'
-
-#     footer = '^^' + footer.replace(' ', ' ^^')
-#     return footer.replace('$', '')
-
-
 def dandaCount(sourceComment):
-    footer = "  \n\n***\n^^[Report error](<" + createMsgLink(
-                "DarkFalconXX","Danda Count","DandaCount bot did not work as expected in reply to " +
-                f"comment {sourceComment.permalink}") + \
-            ">)<_>^^| [Suggest Danda titles](<" + createMsgLink(
-                "DarkFalconXX",
-                "Danda Titles Suggestion"
-                "These are my suggestions:\n") +\
-
-    footer = '  ' + footer.replace(' ', '&nbsp;').replace('<_>', ' ')
-
     if targetUserRegex := re.search(r'u/(\w+)', sourceComment.body, re.I):
         targetUsername = targetUserRegex.group(1)
         targetRedditor = reddit.redditor(targetUsername)
@@ -98,14 +59,14 @@ def dandaCount(sourceComment):
     try:
         targetRedditor.id
     except NotFound:
-        return f"I didn't find any u/{targetUsername}" + footer
+        return f"I didn't find any u/{targetUsername}" 
 
     bcount = 0
     for comment in targetRedditor.comments.new(limit=None):
         if re.search(r'\bdanda\b', comment.body, re.I):
             bcount += 1
 
-    dandaRank = "  \nHe has been awarded the title of "
+    dandaRank = f"\n Time for celebrations, honouring u/{targetUsername} with the title"
     if bcount > 50:
         dandaRank += "Danda God"
     elif bcount > 12:
@@ -115,104 +76,30 @@ def dandaCount(sourceComment):
     elif bcount > 0:
         dandaRank += "Danda Balak"
     else:
-        dandaRank = ''
+        dandaRank = " "
 
-    return 'Thankyou for your request comrade  \n\n&nbsp;\n  '\
+    return 'It seems like \n\n&nbsp;\n  '\
         f'\nu/{targetUsername} has said "Danda" a total of '\
-        f'{bcount} times!' + dandaRank + footer
+        f'{bcount} times!' + dandaRank
 
 
 def shutupShubot():
-    return "It looks like I have annoyed you with my random quotes. I am sorry" +\
-        "^P.S. You can simply [block&nbsp;me](https://redd.it/gh42zl) "\
+    return r"It looks like I have annoyed you with my random quotes. I am sorry" +\
+        "\n^P.S. You can simply block me "\
         "to hide all my comments from you or to stop getting " \
         "replies from me."\
 
-allQuotes = []
+allQuotes = ["Default_quote#1","Default_quote#2","Default_quote#3"]
 
 def getAllQuotes():
     if not allQuotes:
         quoteCreator()
     return allQuotes
 
-
-# class Quote():
-#     def __init__(self, quoteText, youtubeLink, weight, handFiltered):
-#         self.quoteText = quoteText
-#         self.youtubeLink = youtubeLink
-#         self.weight = weight
-#         self.handFiltered = handFiltered
-
-# ``
-# def quoteCreator():
-#     import os
-#     from utils import getAge
-
-#     subFiles = [
-#         ("subs/", a) for a in os.listdir("subs/")] + [
-#         ("subs/done/", a) for a in os.listdir("subs/done/")]
-#     subFiles.remove(('subs/', 'done'))
-
-#     oldestSubAge = getAge(min(int(a[:8]) for fldr, a in subFiles)) * 1.1
-
-#     for fldr, subFile in subFiles:
-
-#         with open(fldr + subFile, 'r') as f:
-#             quotes = f.read().split('\n\n')
-
-#         videoId = subFile[8:]
-#         subAge = getAge(subFile[:8])
-
-#         for quote in quotes:
-#             if quoteTime := re.match(r"(\d\d):(\d\d):(\d\d)", quote):
-#                 hh, mm, ss = quoteTime.groups()
-#             else:
-#                 print(f"Time stamp not found in {quote=} \nof {subFile=}")
-#                 continue
-#             youtubeLink = f"https://youtu.be/{videoId}/?t={hh}h{mm}m{ss}s"
-
-#             # Removes the time stamp
-#             quoteText = re.sub("^.*\n", '', quote)
-#             # Removes anything inside [] or ()
-#             quoteText = re.sub(r"\[.*\]", '', quoteText)
-#             quoteText = re.sub(r"\(.*\)", '', quoteText)
-#             quoteText = re.sub("  ", ' ', quoteText)
-#             # Remove starting -
-#             quoteText = re.sub(r"^\s*-\s*", '', quoteText)
-
-#             # sometimes two quotes are not seperated
-#             if re.search(r'(\d\d):(\d\d):(\d\d)', quoteText):
-#                 print(f"Invalid format of {quote=} in {subFile=}")
-#                 continue
-
-#             # Formatting
-#             quoteText = quoteText.strip()
-#             quoteText = re.sub(
-#                 r"^\W*(and|but|so|also|that|i mean)\W*|" +
-#                 r"([^a-zA-Z\?\.\!]*and|but|so|beacuse|also)\W*$",
-#                 '',
-#                 quoteText,
-#                 flags=re.I).strip()
-#             quoteText = quoteText.capitalize()
-
-#             # Filters
-#             if len(re.sub(
-#                     r'\W|saiman|timothy|a+ditya', '',
-#                     quoteText, flags=re.I)) < 3:
-#                 continue
-#             if re.search('video|^welcome', quoteText, re.I):
-#                 # print(f"Banned words in '{quoteText}' of {subFile}")
-#                 continue
-
-#             handFiltered = fldr == 'subs/done/'
-#             weight = (1 - subAge/oldestSubAge) ** 2
-
-#             if re.search('t-series|pewds|pewdiepie', quoteText, re.I):
-#                 weight = weight/4
-#             if handFiltered:
-#                 weight = weight * 1.2
-
-#             quote = Quote(quoteText, youtubeLink, weight, handFiltered)
-#             allQuotes.append(quote)
-def cancelInvite()
+def cancelInvite():
     return "Seriously? Shub with an H? Your shaadi invitation is cancelled."
+
+def pickRandom(filename=None):
+    f = open(f"sub\{filename}.txt")
+    x=(f.read()).split("\n")
+    return random.choices(x)
