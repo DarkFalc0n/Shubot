@@ -16,3 +16,4 @@ jobs:
           heroku_app_name: "iamshubot" #Must be unique in Heroku
           heroku_email: "unfezant211@gmail.com"
           docker_heroku_process_type: worker
+          usedocker: true
