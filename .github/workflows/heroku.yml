@@ -1,7 +1,7 @@
 name: 'Heroku Direct Deploy' #set whatevername you want to your github job
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
   build:
     runs-on: ubuntu-latest
