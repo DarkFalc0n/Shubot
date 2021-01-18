@@ -18,7 +18,7 @@ jobs:
     # Your Heroku API Key
           api_key: ed9ca221-3e3e-42cc-bc90-d0e8d427d8fb
     # Your Heroku App Name
-          app_name: dftechs-bot
+          app_name: iamshubot
     # Dokerfile path
           dockerfile_path: ./
     # Optional build parameters
