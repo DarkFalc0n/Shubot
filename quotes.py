@@ -66,15 +66,15 @@ def dandaCount(sourceComment):
         if re.search(r'\bdanda\b', comment.body, re.I):
             bcount += 1
 
-    dandaRank = f"\n Time for celebrations, honouring u/{targetUsername} with the title"
+    dandaRank = f"\n Time for celebrations, honouring u/{targetUsername} with the title\n"
     if bcount > 50:
-        dandaRank += "Danda God"
+        dandaRank += "#Danda God"
     elif bcount > 12:
-        dandaRank += "Danda Legend"
+        dandaRank += "#Danda Legend"
     elif bcount > 5:
-        dandaRank += "Danda Master"
+        dandaRank += "#Danda Master"
     elif bcount > 0:
-        dandaRank += "Danda Balak"
+        dandaRank += "#Danda Balak"
     else:
         dandaRank = " "
 

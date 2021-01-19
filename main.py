@@ -75,15 +75,27 @@ def main():
             print(f"Replying to '{comment.permalink}' with greetings")
             replyToComment(comment, pickRandom("greetings"))
 
-        elif re.search(r"\bbot\b",comment.body, re.I):
-            print(f"Replying to '{comment.permalink}' with bot reply")
+        elif re.search(r"\bbot\b",comment.body, re.I) and re.search(r"\bgood\b", comment.body, re.I):
+            print(f"Replying to '{comment.permalink}' with good bot reply")
+            replyToComment(comment, pickRandom("goodbot"))
+
+        elif re.search(r"\bbot\b",comment.body, re.I) and  re.search(r"\bbad\b", comment.body, re.I):
+            print(f"Replying to '{comment.permalink}' with bad bot reply")
             replyToComment(comment, pickRandom("notbot"))
+
+        elif re.search(r"\bmikasa\b", comment.body, re.I):
+            print(f"Replying to '{comment.permalink}' with mikasa reply")
+            replyToComment(comment, "Haaye kya ladki hai ye Mikasa")
+        
+        elif re.search(r"\bthanks\b|\bthank",comment.body, re.I) and comment.parent().author == me:
+            print(f"Replying to '{comment.permalink}' with thanks reply")
+            replyToComment(comment, pickRandom("thanks"))
 
         signalHandler.loopEnd()
 
 
 if __name__ == "__main__":
-    print("Starting the bot")
+    print("Starting Shubot.....")
     while(True):
         try:
             main()
