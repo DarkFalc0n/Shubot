@@ -33,18 +33,19 @@ def getRickRoll():
         rickRolls = "https://youtu.be/dQw4w9WgXcQ"
     return rickrolls
 
+def pickRandom(filename=None):
+    f = open(f"sub\{filename}.txt")
+    x=(f.read()).split("\n")
+    return random.choices(x)
+
 def randomQuote(quote=None):
 
-    if quote is None:
-        allQuotes = getAllQuotes()
-        quote = random.choices(allQuotes)
-
     if random.randint(0, 50):
-        msg = quote 
+        msg = pickRandom(quote) 
     else:
         youtubeLink = getRickRoll()
-        msg = quote + '\n\n&nbsp;\n\n' +\
-        f'[Quote Sauce](<{youtubeLink}>)'
+        msg = pickRandom(quote) + '\n\n&nbsp;\n\n' +\
+        f'[Quote Source](<{youtubeLink}>)'
     
 
     return msg
@@ -99,7 +100,4 @@ def getAllQuotes():
 def cancelInvite():
     return "Seriously? Shub with an H? Your shaadi invitation is cancelled."
 
-def pickRandom(filename=None):
-    f = open(f"{filename}.txt")
-    x=(f.read()).split("\n")
-    return random.choices(x)
+

@@ -17,6 +17,7 @@ from quotes import (
     cancelInvite,
     greetings,
     pickRandom,
+    randomQuote,
 )
 
 
@@ -59,10 +60,6 @@ def main():
             print(f"Replying to '{comment.permalink}' with Cakeday")
             replyToComment(comment, happyCakeday())
 
-        elif re.search(r"\bShubham\b|\bbeastboyshub?-?(Shub | ?bot)\b|\bShubot\b|\bdanda\b|\bchippu\b|\brealshub\b|\bShubhu\b",comment.body, re.I):
-            print(f"Replying to '{comment.permalink}' with random quote")
-            replyToComment(comment, randomQuote())
-
         elif re.search(r"\bShubh\b",comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with cancelled invite")
             replyToComment(comment, cancelInvite())
@@ -71,17 +68,17 @@ def main():
             print(f"Replying to '{comment.permalink}' with Danda count")
             replyToComment(comment, dandaCount(comment))
 
-        elif re.search(r"\bHello\b|\bHi\b|\bHey\b", comment.body, re.I):
+        elif re.search(r"\bHello\b|\bHi\b|\bHey\b|\bShubot\b|\bShub\b|\bBBS\b|\bBeastBoy\b|\bBeastBoyShub\b", comment.body, re.I) and comment.parent().author != me :
             print(f"Replying to '{comment.permalink}' with greetings")
-            replyToComment(comment, pickRandom("greetings"))
+            replyToComment(comment, randomQuote("greetings"))
 
         elif re.search(r"\bbot\b",comment.body, re.I) and re.search(r"\bgood\b", comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with good bot reply")
-            replyToComment(comment, pickRandom("goodbot"))
+            replyToComment(comment, randomQuote("goodbot"))
 
         elif re.search(r"\bbot\b",comment.body, re.I) and  re.search(r"\bbad\b", comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with bad bot reply")
-            replyToComment(comment, pickRandom("notbot"))
+            replyToComment(comment, randomQuote("notbot"))
 
         elif re.search(r"\bmikasa\b", comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with mikasa reply")
@@ -89,7 +86,7 @@ def main():
         
         elif re.search(r"\bthanks\b|\bthank",comment.body, re.I) and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with thanks reply")
-            replyToComment(comment, pickRandom("thanks"))
+            replyToComment(comment, randomQuote("thanks"))
 
         signalHandler.loopEnd()
 
