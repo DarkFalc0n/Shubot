@@ -100,6 +100,6 @@ def cancelInvite():
     return "Seriously? Shub with an H? Your shaadi invitation is cancelled."
 
 def pickRandom(filename=None):
-    f = open(f"{filename}.txt")
+    f = open(f"sub\{filename}.txt")
     x=(f.read()).split("\n")
     return random.choices(x)
