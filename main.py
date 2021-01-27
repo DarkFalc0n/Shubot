@@ -18,6 +18,7 @@ from quotes import (
     greetings,
     pickRandom,
     randomQuote,
+    fBomb,
 )
 
 
@@ -67,6 +68,10 @@ def main():
         elif re.search(r"dandacount", comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with Danda count")
             replyToComment(comment, dandaCount(comment))
+        
+        elif re.search(r"fuck", comment.body, re.I):
+            print(f"Replying to '{comment.permalink}' with F-Bomb")
+            replyToComment(comment, fBomb(comment))
 
         elif re.search(r"\bHello\b|\bHi\b|\bHey\b|\bShubot\b|\bShub\b|\bBBS\b|\bBeastBoy\b|\bBeastBoyShub\b", comment.body, re.I) and comment.parent().author != me :
             print(f"Replying to '{comment.permalink}' with greetings")

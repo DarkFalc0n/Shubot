@@ -83,7 +83,10 @@ def dandaCount(sourceComment):
         f'\nu/{targetUsername} has said "Danda" a total of '\
         f'{bcount} times!' + dandaRank
 
-
+def fBomb(sourceComment):
+    bcount = sourceComment.body.count("fuck")   
+    return "I have noticed that you've dropped " + f'{bcount} F-bomb(s) in your comment, \n #NOTED.'\
+    
 def shutupShubot():
     return r"It looks like I have annoyed you with my random quotes. I am sorry" +\
         "\n^P.S. You can simply block me "\
