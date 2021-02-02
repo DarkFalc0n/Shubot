@@ -2,6 +2,7 @@ from prawcore.exceptions import RequestException, ServerError
 import re
 from Reddit import reddit
 import time
+import random
 from utils import (
     SignalHandler,
     cakedayCheck,
@@ -89,9 +90,23 @@ def main():
             print(f"Replying to '{comment.permalink}' with mikasa reply")
             replyToComment(comment, "Haaye kya ladki hai ye Mikasa")
         
-        elif re.search(r"\bthanks\b|\bthank",comment.body, re.I) and comment.parent().author == me:
+        elif re.search(r"\bthanks\b|\bthank", comment.body, re.I) and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with thanks reply")
             replyToComment(comment, randomQuote("thanks"))
+
+        elif re.search(r"\bno u\b", comment.body, re.I):
+            if random.randint(0,3):
+                print(f"Ignored {comment.permalink} with no u trigger")
+            else:
+                print(f"Replying to {comment.permalink} with beizzati")
+                replyToComment(comment, "Beizzati, lol") 
+                  
+        elif re.search(r"\bfreefire\b", comment.body, re.I):
+            if random.randint(0,3):
+                print(f"Ignored {comment.permalink} with freefire trigger")
+            else:
+                print(f"Replying to {comment.permalink} with freefire reply")
+                replyToComment(comment,"Freefire khelni hogi toh khel lunga, spam mat karo")
 
         signalHandler.loopEnd()
 
