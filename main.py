@@ -62,7 +62,7 @@ def main():
             print(f"Replying to '{comment.permalink}' with Cakeday")
             replyToComment(comment, happyCakeday())
 
-         elif re.search(r"\bbbsquote\b",comment.body, re.I):
+        elif re.search(r"\bbbsquote\b",comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with random quote")
             replyToComment(comment, randomQuote("bbsquotes"))
 
