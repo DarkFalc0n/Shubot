@@ -16,7 +16,6 @@ from quotes import (
     randomQuote,
     shutupShubot,
     cancelInvite,
-    greetings,
     pickRandom,
     randomQuote,
     fBomb,
