@@ -62,6 +62,10 @@ def main():
             print(f"Replying to '{comment.permalink}' with Cakeday")
             replyToComment(comment, happyCakeday())
 
+         elif re.search(r"\bbbsquote\b",comment.body, re.I):
+            print(f"Replying to '{comment.permalink}' with random quote")
+            replyToComment(comment, randomQuote("bbsquotes"))
+
         elif re.search(r"\bShubh\b",comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with cancelled invite")
             replyToComment(comment, cancelInvite())
@@ -74,7 +78,7 @@ def main():
             print(f"Replying to '{comment.permalink}' with F-Bomb")
             replyToComment(comment, fBomb(comment))
 
-        elif re.search(r"\bHello\b|\bHi\b|\bHey\b|\bShubot\b|\bShub\b|\bBBS\b|\bBeastBoy\b|\bBeastBoyShub\b", comment.body, re.I) and comment.parent().author != me :
+        elif re.search(r"\bHello\b|\bHi\b|\bHey\b", comment.body, re.I) and re.search(r"\bShubot\b, comment.body, re.I"):
             print(f"Replying to '{comment.permalink}' with greetings")
             replyToComment(comment, randomQuote("greetings"))
 
@@ -101,7 +105,7 @@ def main():
                 print(f"Replying to {comment.permalink} with beizzati")
                 replyToComment(comment, "Beizzati, lol") 
                   
-        elif re.search(r"\bfreefire\b", comment.body, re.I):
+        elif re.search(r"\bfreefire\b|\bfree fire\b", comment.body, re.I):
             if random.randint(0,3):
                 print(f"Ignored {comment.permalink} with freefire trigger")
             else:

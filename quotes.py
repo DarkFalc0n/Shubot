@@ -18,14 +18,10 @@ def createMsgLink(to=None, subject=None, message=None):
 
 
 def happyCakeday():
-    return "Happy cakeday to you. Wanna hear a Shubham exclusive quote? Here you go: \n\n&nbsp;\n\n" +\
-        randomQuote() + '\u200e'
-
-def greetings():
-    return "Hey fella, Shubot here!"
+    return "Happy cakeday to you. Wanna hear a Shub exclusive quote? Here you go: \n\n&nbsp;\n\n" +\
+        randomQuote("bbsquotes") + '\u200e'
 
 rickRolls = None
-
 
 def getRickRoll():
     global rickRolls
@@ -89,7 +85,7 @@ def fBomb(sourceComment):
     
 def shutupShubot():
     return r"It looks like I have annoyed you with my random quotes. I am sorry" +\
-        "\n^P.S. You can simply block me "\
+        r"\n^P.S. You can simply block me "\
         "to hide all my comments from you or to stop getting " \
         "replies from me."\
 
