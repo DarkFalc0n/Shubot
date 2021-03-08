@@ -31,7 +31,7 @@ def main():
     inboxCheckTime = 0
     me = reddit.user.me()
 
-    for comment in reddit.subreddit("onlyhere").stream.comments():
+    for comment in reddit.subreddit("ForShub").stream.comments():
 
         signalHandler.loopStart()
 
@@ -41,7 +41,7 @@ def main():
 
         if time.time() > commentCheckTime:
             commentCheck()
-            commentCheckTime = time.time() + 10000
+            commentCheckTime = time.time() + 9000
 
         if comment.saved \
                 or comment.author == me \
@@ -65,7 +65,7 @@ def main():
             print(f"Replying to '{comment.permalink}' with random quote")
             replyToComment(comment, randomQuote("bbsquotes"))
 
-        elif re.search(r"\bShubh\b",comment.body, re.I):
+        elif re.search(r"\bShubh\b|\bBeastBoyShubh\b",comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with cancelled invite")
             replyToComment(comment, cancelInvite())
 
@@ -77,21 +77,21 @@ def main():
             print(f"Replying to '{comment.permalink}' with F-Bomb")
             replyToComment(comment, fBomb(comment))
 
-        elif re.search(r"\bHello\b|\bHi\b|\bHey\b", comment.body, re.I) and re.search(r"\bShubot\b, comment.body, re.I"):
+        elif re.search(r"\bHello\b|\bHi\b|\bHey\b", comment.body, re.I) and re.search(r"\bShubot\b|\bu/IamShubot\b", comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with greetings")
             replyToComment(comment, randomQuote("greetings"))
 
-        elif re.search(r"\bbot\b",comment.body, re.I) and re.search(r"\bgood\b", comment.body, re.I):
+        elif re.search(r"\bbot\b",comment.body, re.I) and re.search(r"\bgood\b|\bawesome\b|\bbadass\b|\bnice\b", comment.body, re.I) and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with good bot reply")
             replyToComment(comment, randomQuote("goodbot"))
 
-        elif re.search(r"\bbot\b",comment.body, re.I) and  re.search(r"\bbad\b", comment.body, re.I):
+        elif re.search(r"\bbot\b",comment.body, re.I) and  re.search(r"\bbad\b", comment.body, re.I) and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with bad bot reply")
             replyToComment(comment, randomQuote("notbot"))
 
-        elif re.search(r"\bmikasa\b", comment.body, re.I):
+        elif re.search(r"\bmikasa\b|\bmikasa's\b", comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with mikasa reply")
-            replyToComment(comment, "Haaye kya ladki hai ye Mikasa")
+            replyToComment(comment, "Haaye kya ladki hai ye Mikasa (っ´ω`c)")
         
         elif re.search(r"\bthanks\b|\bthank", comment.body, re.I) and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with thanks reply")
@@ -105,7 +105,7 @@ def main():
                 replyToComment(comment, "Beizzati, lol") 
                   
         elif re.search(r"\bfreefire\b|\bfree fire\b", comment.body, re.I):
-            if random.randint(0,3):
+            if random.randint(0,2):
                 print(f"Ignored {comment.permalink} with freefire trigger")
             else:
                 print(f"Replying to {comment.permalink} with freefire reply")

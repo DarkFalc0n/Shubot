@@ -30,7 +30,7 @@ def getRickRoll():
     return rickrolls
 
 def pickRandom(filename=None):
-    f = open(f"sub\{filename}.txt")
+    f = open(f".\sub\{filename}.txt")
     x=(f.read()).split("\n")
     return random.choices(x)
 
@@ -50,9 +50,12 @@ def dandaCount(sourceComment):
     if targetUserRegex := re.search(r'u/(\w+)', sourceComment.body, re.I):
         targetUsername = targetUserRegex.group(1)
         targetRedditor = reddit.redditor(targetUsername)
+        targetName = "u/"+targetUsername
+        verbForm = "has"
     else:
         targetRedditor = sourceComment.parent().author
-
+        targetName = "you"
+        verbForm = "have"
     try:
         targetRedditor.id
     except NotFound:
@@ -63,10 +66,10 @@ def dandaCount(sourceComment):
         if re.search(r'\bdanda\b', comment.body, re.I):
             bcount += 1
 
-    dandaRank = f"\n Time for celebrations, honouring u/{targetUsername} with the title\n"
-    if bcount > 50:
+    dandaRank = r"\n Time for celebrations, honouring {targetName} with the title\n"
+    if bcount > 20:
         dandaRank += "#Danda God"
-    elif bcount > 12:
+    elif bcount > 10:
         dandaRank += "#Danda Legend"
     elif bcount > 5:
         dandaRank += "#Danda Master"
@@ -76,25 +79,19 @@ def dandaCount(sourceComment):
         dandaRank = " "
 
     return 'It seems like \n\n&nbsp;\n  '\
-        f'\nu/{targetUsername} has said "Danda" a total of '\
+        f'\n{targetName} {verbForm} said "Danda" a total of '\
         f'{bcount} times!' + dandaRank
 
 def fBomb(sourceComment):
-    bcount = sourceComment.body.count("fuck")   
+    xstring = sourceComment.body.upper()
+    bcount = xstring.count("FUCK")
     return "I have noticed that you've dropped " + f'{bcount} F-bomb(s) in your comment, \n #NOTED.'\
     
 def shutupShubot():
     return r"It looks like I have annoyed you with my random quotes. I am sorry" +\
-        r"\n^P.S. You can simply block me "\
+        f"\n^P.S. You can simply block me "\
         "to hide all my comments from you or to stop getting " \
         "replies from me."\
-
-allQuotes = ["Default_quote#1","Default_quote#2","Default_quote#3"]
-
-def getAllQuotes():
-    if not allQuotes:
-        quoteCreator()
-    return allQuotes
 
 def cancelInvite():
     return "Seriously? Shub with an H? Your shaadi invitation is cancelled."
