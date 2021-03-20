@@ -31,7 +31,7 @@ def main():
     inboxCheckTime = 0
     me = reddit.user.me()
 
-    for comment in reddit.subreddit("ForShub").stream.comments():
+    for comment in reddit.subreddit("onlyhere").stream.comments():
 
         signalHandler.loopStart()
 
@@ -48,7 +48,7 @@ def main():
                 or re.search("\bre+post\b", comment.body, re.I):
             continue
 
-        if re.search(r"\bchup\b|\b(shut)?-?(up)\b|\bblock\b|\bstop\b", comment.body, re.I) \
+        if re.search(r"\bchup\b|\bshut\b|\bblock\b|\bstop\b", comment.body, re.I) \
                 and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with shutupShubot")
             replyToComment(comment, shutupShubot())
@@ -61,6 +61,15 @@ def main():
             print(f"Replying to '{comment.permalink}' with Cakeday")
             replyToComment(comment, happyCakeday())
 
+        elif re.search(r"\bbalak\b", comment.body, re.I):
+            if random.randint(0,3):
+                comment.save()
+                print(f"Ignored the '{comment.permalink}' balak trigger")
+            else:
+                print(f"Replying to {comment.permalink} with balak trigger")
+                mesg= randomQuote("bbsquotes")
+                replyToComment(comment, mesg)
+                
         elif re.search(r"\bbbsquote\b",comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with random quote")
             replyToComment(comment, randomQuote("bbsquotes"))
@@ -100,6 +109,7 @@ def main():
         elif re.search(r"\bno u\b", comment.body, re.I):
             if random.randint(0,3):
                 print(f"Ignored {comment.permalink} with no u trigger")
+                comment.save()
             else:
                 print(f"Replying to {comment.permalink} with beizzati")
                 replyToComment(comment, "Beizzati, lol") 
@@ -107,12 +117,12 @@ def main():
         elif re.search(r"\bfreefire\b|\bfree fire\b", comment.body, re.I):
             if random.randint(0,2):
                 print(f"Ignored {comment.permalink} with freefire trigger")
+                comment.save()
             else:
                 print(f"Replying to {comment.permalink} with freefire reply")
-                replyToComment(comment,"Freefire khelni hogi toh khel lunga, spam mat karo")
+                replyToComment(comment,"Thak gaya hu vro, freefire spam ka reply dete dete....")
 
         signalHandler.loopEnd()
-
 
 if __name__ == "__main__":
     print("Starting Shubot.....")

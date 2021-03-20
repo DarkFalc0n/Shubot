@@ -18,7 +18,7 @@ def createMsgLink(to=None, subject=None, message=None):
 
 
 def happyCakeday():
-    return "Happy cakeday to you. Wanna hear a Shub exclusive quote? Here you go: \n\n&nbsp;\n\n" +\
+    return f'Happy cakeday to you. Wanna hear a Shub exclusive quote? Here you go: \n\n&nbsp;\n\n' +\
         randomQuote("bbsquotes") + '\u200e'
 
 rickRolls = None
@@ -43,7 +43,6 @@ def randomQuote(quote=None):
         msg = pickRandom(quote) + '\n\n&nbsp;\n\n' +\
         f'[Quote Source](<{youtubeLink}>)'
     
-
     return msg
 
 def dandaCount(sourceComment):
@@ -66,20 +65,20 @@ def dandaCount(sourceComment):
         if re.search(r'\bdanda\b', comment.body, re.I):
             bcount += 1
 
-    dandaRank = r"\n Time for celebrations, honouring {targetName} with the title\n"
+    dandaRank = f"\n Time for celebrations, honouring {targetName} with the title\n"
     if bcount > 20:
-        dandaRank += "#Danda God"
+        dandaRank += f"#Danda God"
     elif bcount > 10:
-        dandaRank += "#Danda Legend"
+        dandaRank += f"#Danda Legend"
     elif bcount > 5:
-        dandaRank += "#Danda Master"
+        dandaRank += f"#Danda Master"
     elif bcount > 0:
-        dandaRank += "#Danda Balak"
+        dandaRank += f"#Danda Balak"
     else:
         dandaRank = " "
 
-    return 'It seems like \n\n&nbsp;\n  '\
-        f'\n{targetName} {verbForm} said "Danda" a total of '\
+    return 'It seems like '\
+        f'{targetName} {verbForm} said "Danda" a total of '\
         f'{bcount} times!' + dandaRank
 
 def fBomb(sourceComment):
@@ -89,7 +88,7 @@ def fBomb(sourceComment):
     
 def shutupShubot():
     return r"It looks like I have annoyed you with my random quotes. I am sorry" +\
-        f"\n^P.S. You can simply block me "\
+        "\n   ^P.S. You can simply block me" \
         "to hide all my comments from you or to stop getting " \
         "replies from me."\
 
