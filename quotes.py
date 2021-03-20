@@ -30,7 +30,7 @@ def getRickRoll():
     return rickrolls
 
 def pickRandom(filename=None):
-    f = open(f".\sub\{filename}.txt")
+    f = open(f".\sub\{filename}.txt", "r")
     x=(f.read()).split("\n")
     return random.choices(x)
 
