@@ -43,7 +43,7 @@ def randomQuote(quote=None):
         msg = pickRandom(quote) + '\n\n&nbsp;\n\n' +\
         f'[Quote Source](<{youtubeLink}>)'
     
-    return str(msg)
+    return msg
 
 def dandaCount(sourceComment):
     if targetUserRegex := re.search(r'u/(\w+)', sourceComment.body, re.I):
