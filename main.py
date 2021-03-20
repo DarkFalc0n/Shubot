@@ -67,7 +67,7 @@ def main():
                 print(f"Ignored the '{comment.permalink}' balak trigger")
             else:
                 print(f"Replying to {comment.permalink} with balak trigger")
-                mesg= "Ayy Balaks, I got a BBS quote for you" + randomQuote("bbsquotes")
+                mesg= "Ayy Balaks, I got a BBS quote for you: \n" + randomQuote("bbsquotes")
                 replyToComment(comment, mesg)
                 
         elif re.search(r"\bbbsquote\b",comment.body, re.I):
