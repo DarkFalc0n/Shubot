@@ -37,10 +37,10 @@ def pickRandom(filename=None):
 def randomQuote(quote=None):
 
     if random.randint(0, 50):
-        msg = pickRandom(quote) 
+        msg = str(pickRandom(quote)).strip("[]'")
     else:
         youtubeLink = getRickRoll()
-        msg = pickRandom(quote) + '\n\n&nbsp;\n\n' +\
+        msg = str(pickRandom(quote)).strip("[]'") + '\n\n&nbsp;\n\n' +\
         f'[Quote Source](<{youtubeLink}>)'
     
     return msg
