@@ -67,7 +67,7 @@ def main():
                 print(f"Ignored the '{comment.permalink}' balak trigger")
             else:
                 print(f"Replying to {comment.permalink} with balak trigger")
-                mesg1 = f'Ayy yo balaks, I got a BBS quote for ya:   ' + '\n' + randomQuote("bbsquotes")
+                mesg1 = f'Ye lo BBS ka quote:   ' + '\n' + randomQuote("bbsquotes")
                 replyToComment(comment, mesg1)
                 
         elif re.search(r"\bbbsquote\b",comment.body, re.I):
@@ -82,9 +82,9 @@ def main():
             print(f"Replying to '{comment.permalink}' with Danda count")
             replyToComment(comment, dandaCount(comment))
         
-        elif re.search(r"fuck", comment.body, re.I):
-            print(f"Replying to '{comment.permalink}' with F-Bomb")
-            replyToComment(comment, fBomb(comment))
+        # elif re.search(r"fuck", comment.body, re.I):
+        #     print(f"Replying to '{comment.permalink}' with F-Bomb")
+        #     replyToComment(comment, fBomb(comment))
 
         elif re.search(r"\bHello\b|\bHi\b|\bHey\b", comment.body, re.I) and re.search(r"\bShubot\b|\bu/IamShubot\b", comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with greetings")
@@ -98,10 +98,18 @@ def main():
             print(f"Replying to '{comment.permalink}' with bad bot reply")
             replyToComment(comment, randomQuote("notbot"))
 
-        elif re.search(r"\bmikasa\b|\bmikasa's\b", comment.body, re.I):
-            print(f"Replying to '{comment.permalink}' with mikasa reply")
-            replyToComment(comment, "Haaye kya ladki hai ye Mikasa (っ´ω`c)")
-        
+        # elif re.search(r"\bmikasa\b|\bmikasa's\b", comment.body, re.I):
+        #     print(f"Replying to '{comment.permalink}' with mikasa reply")
+        #     replyToComment(comment, "Haaye kya ladki hai ye Mikasa (っ´ω`c)")
+
+        elif re.search(r"\bnaruto\b", comment.body, re.I):
+            if random.randint(0,2):
+                print(f"Ignored {comment.permalink} with no u trigger")
+                comment.save()
+            else:
+                print(f"Replying to {comment.permalink} with life's truth")
+                replyToComment(comment, "nArUtO dEKhO GUyS, Tabhi lIFE Ka TRUtH PAtA CHaLega") 
+                
         elif re.search(r"\bthanks\b|\bthank", comment.body, re.I) and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with thanks reply")
             replyToComment(comment, randomQuote("thanks"))
@@ -114,13 +122,13 @@ def main():
                 print(f"Replying to {comment.permalink} with beizzati")
                 replyToComment(comment, "Beizzati, lol") 
                   
-        elif re.search(r"\bfreefire\b|\bfree fire\b", comment.body, re.I):
-            if random.randint(0,2):
-                print(f"Ignored {comment.permalink} with freefire trigger")
-                comment.save()
-            else:
-                print(f"Replying to {comment.permalink} with freefire reply")
-                replyToComment(comment,"Thak gaya hu vro, freefire spam ka reply dete dete....")
+        # elif re.search(r"\bfreefire\b|\bfree fire\b", comment.body, re.I):
+        #     if random.randint(0,2):
+        #         print(f"Ignored {comment.permalink} with freefire trigger")
+        #         comment.save()
+        #     else:
+        #         print(f"Replying to {comment.permalink} with freefire reply")
+        #         replyToComment(comment,"Thak gaya hu vro, freefire spam ka reply dete dete....")
 
         signalHandler.loopEnd()
 

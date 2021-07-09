@@ -81,10 +81,10 @@ def dandaCount(sourceComment):
         f'{targetName} {verbForm} said "Danda" a total of '\
         f'{bcount} times!' + dandaRank
 
-def fBomb(sourceComment):
-    xstring = sourceComment.body.upper()
-    bcount = xstring.count("FUCK")
-    return "I have noticed that you've dropped " + f'{bcount} F-bomb(s) in your comment, \n #NOTED.'\
+# def fBomb(sourceComment):
+#     xstring = sourceComment.body.upper()
+#     bcount = xstring.count("FUCK")
+#     return "I have noticed that you've dropped " + f'{bcount} F-bomb(s) in your comment, \n #NOTED.'\
     
 def shutupShubot():
     return r"It looks like I have annoyed you with my random quotes. I am sorry" +\
