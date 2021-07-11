@@ -21,6 +21,11 @@ from quotes import (
     fBomb,
 )
 
+footer = "\n---\n*I am a bot, and this message was delivered automatically. If you have any queries or feedback, you can go* [*here*](https://www.reddit.com/user/IamShubot/comments/luglrq/shubot_general_guidelines/)"
+
+def commentFooter(message, xstring):
+    xstring = xstring + footer
+    replyToComment(message, xstring)
 
 signalHandler = SignalHandler()
 
@@ -51,7 +56,7 @@ def main():
         if re.search(r"\bchup\b|\bshut\b|\bblock\b|\bstop\b", comment.body, re.I) \
                 and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with shutupShubot")
-            replyToComment(comment, shutupShubot())
+            commentFooter(comment, shutupShubot())
 
             reddit.redditor("DarkFalconXX").message(
                 "Sent a Shutup Shubot", comment.permalink)
@@ -59,48 +64,48 @@ def main():
 
         elif cakedayCheck(comment):
             print(f"Replying to '{comment.permalink}' with Cakeday")
-            replyToComment(comment, happyCakeday())
+            commentFooter(comment, happyCakeday())
 
         elif re.search(r"\bbalak\b", comment.body, re.I):
-            if random.randint(0,3):
+            if random.randint(0,2):
                 comment.save()
                 print(f"Ignored the '{comment.permalink}' balak trigger")
             else:
                 print(f"Replying to {comment.permalink} with balak trigger")
                 mesg1 = f'Ye lo BBS ka quote:   ' + '\n' + randomQuote("bbsquotes")
-                replyToComment(comment, mesg1)
+                commentFooter(comment, mesg1)
                 
         elif re.search(r"\bbbsquote\b",comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with random quote")
-            replyToComment(comment, randomQuote("bbsquotes"))
+            commentFooter(comment, randomQuote("bbsquotes"))
 
         elif re.search(r"\bShubh\b|\bBeastBoyShubh\b",comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with cancelled invite")
-            replyToComment(comment, cancelInvite())
+            commentFooter(comment, cancelInvite())
 
         elif re.search(r"dandacount", comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with Danda count")
-            replyToComment(comment, dandaCount(comment))
+            commentFooter(comment, dandaCount(comment))
         
-        # elif re.search(r"fuck", comment.body, re.I):
-        #     print(f"Replying to '{comment.permalink}' with F-Bomb")
-        #     replyToComment(comment, fBomb(comment))
+        elif re.search(r"fuck", comment.body, re.I):
+            print(f"Replying to '{comment.permalink}' with F-Bomb")
+            commentFooter(comment, fBomb(comment))
 
         elif re.search(r"\bHello\b|\bHi\b|\bHey\b", comment.body, re.I) and re.search(r"\bShubot\b|\bu/IamShubot\b", comment.body, re.I):
             print(f"Replying to '{comment.permalink}' with greetings")
-            replyToComment(comment, randomQuote("greetings"))
+            commentFooter(comment, randomQuote("greetings"))
 
         elif re.search(r"\bbot\b",comment.body, re.I) and re.search(r"\bgood\b|\bawesome\b|\bbadass\b|\bnice\b", comment.body, re.I) and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with good bot reply")
-            replyToComment(comment, randomQuote("goodbot"))
+            commentFooter(comment, randomQuote("goodbot"))
 
         elif re.search(r"\bbot\b",comment.body, re.I) and  re.search(r"\bbad\b", comment.body, re.I) and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with bad bot reply")
-            replyToComment(comment, randomQuote("notbot"))
+            commentFooter(comment, randomQuote("notbot"))
 
         # elif re.search(r"\bmikasa\b|\bmikasa's\b", comment.body, re.I):
         #     print(f"Replying to '{comment.permalink}' with mikasa reply")
-        #     replyToComment(comment, "Haaye kya ladki hai ye Mikasa (っ´ω`c)")
+        #     commentFooter(comment, "Haaye kya ladki hai ye Mikasa (っ´ω`c)")
 
         elif re.search(r"\bnaruto\b", comment.body, re.I):
             if random.randint(0,2):
@@ -108,11 +113,11 @@ def main():
                 comment.save()
             else:
                 print(f"Replying to {comment.permalink} with life's truth")
-                replyToComment(comment, "nArUtO dEKhO GUyS, Tabhi lIFE Ka TRUtH PAtA CHaLega") 
+                commentFooter(comment, "eK baAR NarUtO DEkH BHai, TB jaaNeGa lIfe Ka TRuTh") 
                 
         elif re.search(r"\bthanks\b|\bthank", comment.body, re.I) and comment.parent().author == me:
             print(f"Replying to '{comment.permalink}' with thanks reply")
-            replyToComment(comment, randomQuote("thanks"))
+            commentFooter(comment, randomQuote("thanks"))
 
         elif re.search(r"\bno u\b", comment.body, re.I):
             if random.randint(0,3):
@@ -120,7 +125,7 @@ def main():
                 comment.save()
             else:
                 print(f"Replying to {comment.permalink} with beizzati")
-                replyToComment(comment, "Beizzati, lol") 
+                commentFooter(comment, "Beizzati, lol") 
                   
         # elif re.search(r"\bfreefire\b|\bfree fire\b", comment.body, re.I):
         #     if random.randint(0,2):
@@ -128,7 +133,7 @@ def main():
         #         comment.save()
         #     else:
         #         print(f"Replying to {comment.permalink} with freefire reply")
-        #         replyToComment(comment,"Thak gaya hu vro, freefire spam ka reply dete dete....")
+        #         commentFooter(comment,"Thak gaya hu vro, freefire spam ka reply dete dete....")
 
         signalHandler.loopEnd()
 
