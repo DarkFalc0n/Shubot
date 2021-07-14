@@ -18,9 +18,7 @@ def createMsgLink(to=None, subject=None, message=None):
 
 
 def happyCakeday():
-    return f'Happy cakeday to you. Wanna hear a Shub exclusive quote? Here you go: \n\n&nbsp;\n\n' +\
-        randomQuote("bbsquotes") + '\u200e'
-
+    return f'####Happy cakeday to you.'
 rickRolls = None
 
 def getRickRoll():
@@ -36,11 +34,11 @@ def pickRandom(filename=None):
 
 def randomQuote(quote=None):
 
-    if random.randint(0, 50):
-        msg = str(pickRandom(quote)).strip("[]'")
+    if random.randint(0, 20) != 1:
+        msg = "####" + str(pickRandom(quote)).strip("[]'")
     else:
         youtubeLink = getRickRoll()
-        msg = str(pickRandom(quote)).strip("[]'") + '\n\n&nbsp;\n\n' +\
+        msg = "####" + str(pickRandom(quote)).strip("[]'") + '\n\n&nbsp;\n\n' +\
         f'[Quote Source](<{youtubeLink}>)'
     
     return msg
@@ -58,7 +56,7 @@ def dandaCount(sourceComment):
     try:
         targetRedditor.id
     except NotFound:
-        return f"I didn't find any u/{targetUsername}" 
+        return f"####I didn't find any u/{targetUsername}" 
 
     bcount = 0
     for comment in targetRedditor.comments.new(limit=None):
@@ -77,7 +75,7 @@ def dandaCount(sourceComment):
     else:
         dandaRank = " "
 
-    return 'It seems like '\
+    return '####It seems like '\
         f'{targetName} {verbForm} said "Danda" a total of '\
         f'{bcount} times!' + dandaRank
 
@@ -87,12 +85,12 @@ def fBomb(sourceComment):
     return "I have noticed that you've dropped " + f'{bcount} F-bomb(s) in your comment, \n #NOTED.'\
     
 def shutupShubot():
-    return r"It looks like I have annoyed you with my random quotes. I am sorry" +\
+    return r"####It looks like I have annoyed you with my random quotes. I am sorry" +\
         "\n   ^P.S. You can simply block me" \
         "to hide all my comments from you or to stop getting " \
         "replies from me."\
 
 def cancelInvite():
-    return "Seriously? Shub with an H? Your shaadi invitation is cancelled."
+    return "####Seriously? Shub with an H? Your shaadi invitation is cancelled."
 
 
