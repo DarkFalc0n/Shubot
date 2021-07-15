@@ -86,7 +86,7 @@ def fBomb(sourceComment):
     
 def shutupShubot():
     return r"####It looks like I have annoyed you with my random quotes. I am sorry" +\
-        "\n   ^P.S. You can simply block me" \
+        "\n ####P.S. You can simply block me " \
         "to hide all my comments from you or to stop getting " \
         "replies from me."\
 
