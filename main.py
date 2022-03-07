@@ -62,9 +62,10 @@ def main():
                 "Sent a Shutup Shubot", comment.permalink)
             inboxCheckTime = time.time() + 3600
 
-        elif cakedayCheck(comment):
-            print(f"Replying to '{comment.permalink}' with Cakeday")
-            commentFooter(comment, happyCakeday())
+        # elif cakedayCheck(comment):
+        #     print(f"Replying to '{comment.permalink}' with Cakeday")
+        #     commentFooter(comment, happyCakeday())
+        #     comment.save()
 
         elif re.search(r"\bbalak\b", comment.body, re.I):
             if random.randint(0,2) == 1:

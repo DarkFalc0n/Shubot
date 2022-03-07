@@ -34,21 +34,14 @@ class SignalHandler():
 
 
 def cakedayCheck(comment):
-    if comment.author in cakedayRedditors:
-        # Already Wished
-        return False
-
     createdUtc = comment.created_utc + 3600 * 24 * 365
     currentUtc = utcTime()
+    if currentUtc - createdUtc < 3600 * 24:
+        return True
+    else:
+        return False
 
-    while(currentUtc > createdUtc):
-        if currentUtc - createdUtc < 3600 * 24:
-            cakedayRedditors.append(comment.author)
-            return True
-        createdUtc += 3600 * 24 * 365
-    return False
-
-
+    
 def commentCheck():
     for comment in reddit.user.me().comments.new():
 
